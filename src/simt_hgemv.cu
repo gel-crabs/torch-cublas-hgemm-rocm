@@ -20,18 +20,18 @@ inline void checkCudaStatus(cudaError_t status)
     }
 }
 
-__device__ __forceinline__ half warpReduceSum(half sum, uint32_t threadNum)
+__device__ __forceinline__ half warpReduceSum(half sum, uint32_t threadNum, unsigned long long mask = 0xFFFFFFFFFFFFFFFF)
 {
     if (threadNum >= 32)
-        sum += __shfl_down_sync(0xffffffff, sum, 16); // 0-16, 1-17, 2-18, etc.
+        sum += __shfl_down_sync(mask, sum, 16); // 0-16, 1-17, 2-18, etc.
     if (threadNum >= 16)
-        sum += __shfl_down_sync(0xffffffff, sum, 8); // 0-8, 1-9, 2-10, etc.
+        sum += __shfl_down_sync(mask, sum, 8); // 0-8, 1-9, 2-10, etc.
     if (threadNum >= 8)
-        sum += __shfl_down_sync(0xffffffff, sum, 4); // 0-4, 1-5, 2-6, etc.
+        sum += __shfl_down_sync(mask, sum, 4); // 0-4, 1-5, 2-6, etc.
     if (threadNum >= 4)
-        sum += __shfl_down_sync(0xffffffff, sum, 2); // 0-2, 1-3, 4-6, 5-7, etc.
+        sum += __shfl_down_sync(mask, sum, 2); // 0-2, 1-3, 4-6, 5-7, etc.
     if (threadNum >= 2)
-        sum += __shfl_down_sync(0xffffffff, sum, 1); // 0-1, 2-3, 4-5, etc.
+        sum += __shfl_down_sync(mask, sum, 1); // 0-1, 2-3, 4-5, etc.
     return sum;
 }
 

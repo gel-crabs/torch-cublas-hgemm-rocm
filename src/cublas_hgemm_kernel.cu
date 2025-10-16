@@ -77,7 +77,7 @@ torch::Tensor cublas_gemm_kernel(torch::Tensor a, torch::Tensor b, int m, int n,
         ldc);
     if (result != CUBLAS_STATUS_SUCCESS)
     {
-        const char *results = cublasGetStatusString(result);
+        const char *results = hipblasStatusToString(result);
 
         std::string error_message = "cublasGemmEx failed with error: ";
         error_message += results;

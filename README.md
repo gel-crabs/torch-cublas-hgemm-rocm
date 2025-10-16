@@ -1,3 +1,7 @@
+# I'm pretty sure this works on ROCm now.
+
+This will probably only work correctly with the latest ROCm/Torch nightlies as of the time of writing. This didn't work the last time I tried building this, but now it does, probably due to a [recent Torch Hipify change](https://github.com/pytorch/pytorch/commit/ae61b7f560175633d91df57d8b144b2f71ed41b6). I'm using TheRock nightlies on Linux with a GFX11/RDNA3 GPU so YMMV, but this builds for your native architecture and should work fine for any AMD GPU with hipBLASLt support. Follow the Installation section below to install.
+
 # CublasOps: High-Performance Linear Layers with cuBLAS and cuBLASLt
 
 CublasOps is a PyTorch extension library that provides high-performance linear layers for half-precision (FP16) matrix multiplications using NVIDIA's cuBLAS and cuBLASLt libraries. It offers fast and efficient execution of `A x B^T` matrix multiplications with optional bias addition and activation functions (ReLU or GELU).
@@ -30,11 +34,11 @@ To install CublasOps, follow these steps:
 1. Make sure you have PyTorch installed with CUDA support.
 2. Clone the repository:
    ```
-   git clone https://github.com/aredden/torch-cublas-hgemm.git
+   git clone https://github.com/gel-crabs/torch-cublas-hgemm-rocm.git
    ```
 3. Navigate to the cloned repository:
    ```
-   cd torch-cublas-hgemm
+   cd torch-cublas-hgemm-rocm
    ```
 4. Build and install the extension:
    ```

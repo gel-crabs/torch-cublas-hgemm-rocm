@@ -84,7 +84,7 @@ torch::Tensor cublaslt_gemm_launch_axbT(
     cublasOperation_t transb = trans_b ? CUBLAS_OP_T : CUBLAS_OP_N;
 
     // Create matmul operation descriptor with fp16 accumulation
-    checkCublasStatus(cublasLtMatmulDescCreate(&operationDesc, CUBLAS_COMPUTE_16F, CUDA_R_16F));
+    checkCublasStatus(cublasLtMatmulDescCreate(&operationDesc, HIPBLAS_COMPUTE_16F, CUDA_R_16F));
 
     // Set transposition attributes
     checkCublasStatus(
